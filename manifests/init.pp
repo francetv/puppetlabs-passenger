@@ -70,8 +70,13 @@ class passenger (
   $include_build_tools    = false,
 ) inherits passenger::params {
 
-  include '::apache'
-  include '::apache::dev'
+  if !defined(Class['Apache']) {
+    include '::apache'
+  }
+  if !defined(Class['Apache::Dev']) {
+    include '::apache::dev'
+  }
+
 
   include '::passenger::install'
   include '::passenger::config'
